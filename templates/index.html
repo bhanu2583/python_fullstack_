@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Index page</title>
 
 </head>
@@ -14,12 +14,17 @@
         <h1>Index NRIIT Learning Management Sysytem</h1>
         <p>Learn Practice Get Placed</p>
         <nav>
-            <a href="/index">Home</a>
+            <a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
         <a href="/courses">Courses</a>
+        {% if session.get('user_id') %}
+        <p>Welcome, {{ session.get('user_name') }}!</p>
+        <a href="/logout">Logout</a>
+        {% else %}
         <a href="login">Login</a>
         <a href="/register">Register</a>
+        {% endif%}
         <a href="/trainers">Trainers</a>
 
 
@@ -65,7 +70,7 @@
         <a href="#">Instagram</a>
         <a href="#">LinkedIn</a>
     </footer>
-    <script src="js/script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>

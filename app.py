@@ -57,7 +57,41 @@ def api_register():
     existing_user=cursor.fetchone()
     if existing_user:
         conn.close()
-        return jsonify({"message": "Email already registered"})
-        name=data.get("password")
+        return jsonify({"message": "Email already registered"}), 400
+    name=data.get("name")
+    password=data.get("password")
+    dob=data.get("dob")
+    gender=data.get("gender")
+    courses=data.get("courses")
+    conn=get_db_connection()
+    cursor=conn.cursor()
+    cursor.execute("INSERT INTO users (name, email, password,dob, gender,courses)")  
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "User registered successfully"}),201
+    @app.route("api/login",methods=["post"])
+    def api_login():
+        data=request.get_json()
+        email=data.get("email")
+        password=data.get("password")
+        conn=get_db_connection()
+        cursor=conn.cursor()
+        cursor.execute("SELECT* FROM users WHERE email=? AND password=?",(email,password))
+        user=cursor.fetchone()
+        conn.close()
+        if user:
+            session["user_id"]=user["id"]
+            session["user_name"]=user["name"]
+            session["user_email"]=user["email"] 
+            return jsonify({"meassage":"Login successful"}), 200
+        else:
+            return jsonify({"message": "Invalid email or password"}, 401)       
+    @app.route("/logout")
+    def logout():
+        session.pop("user_id", None)
+        session.pop("user_name", None)
+        session,pop("user_email", None)
+        return redirect(url_for("login"))
+
 if __name__=="__main__":
     app.run(debug=True)

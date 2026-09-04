@@ -1,66 +1,66 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Contact page</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">    <title>Register Page</title>
 </head>
 <body>
     <header>
-    <h1>ContactNRIIT Learning Management Sysytem</h1>
+    <h1>Sign up with NRIIT Learning Management System</h1>
     <p>Learn Practice Get Placed</p>
     <nav>
-        <a href="/index">Home</a>
+        <a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
         <a href="/courses">Courses</a>
-        <a href="login">Login</a>
-        <a href="/register">Register</a>
+        {% if session.get('user_id') %}
+            <p>Welcome, {{ session.get('user_name') }}!</p>
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        {% endif %}
         <a href="/trainers">Trainers</a>
-
+    </nav>
+    <hr>
     </header>
     <main>
         <h2>Student Registration</h2>
-        <form id="registerform">
+        <form id="registerForm" >
             <label>Full Name</label>
-            <input type=""text" placeholder="Enter Your name" id="name"><br><br>
+            <input type="text" placeholder="Enter Your Name" id="name"><br><br>
             <label>Email</label>
             <input type="email" placeholder="Enter Your Email" id="email"><br><br>
-            <label>password</label>
-            <input type=""password" placeholder="Enter Your Password"><br><br>
+            <label>Password</label>
+            <input type="password" placeholder="Enter Your Password" id="password"><br><br>
             <label>Date of Birth</label>
-            <input type="date"><br><br>
+            <input type="date" id="date"><br><br>
             <label>Gender</label>
-            <input type="radio" name="gender" value="male" id="male">male
+            <input type="radio" name="gender" value="male" id="male">Male
             <input type="radio" name="gender" value="female" id="female">Female
             <br><br>
             <label>Select Course</label>
             <select id="course" name="course">
-                <option value="python">Python Fullstack</option>
-                <option value="java">Java Fullstack</option>
-                <option value="data-science">DataScience</option>
-            </select> 
-            <br><br>
-            <button type="Submit" >Register</button>
-        </form>
-                 
+                <option value="python">Python FullStack</option>
+                <option value="java">Java FullStack</option>
+                <option value="datascience">Data Science</option>
             </select>
+            <br><br>
+            <button type="Submit" value="register">Register</button>
         </form>
     </main>
-    <footer>
-                    <hr>
-                    <p>&copy; 2026 NRIIT Learning Management System</p>
-                    <p>Email: info@nriit.edu</p>
-                    <p>phone: +8688005585</p>
-                    <p>Follow Us:</p>
-                    <a href="#">Facebook</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">LinkedIn</a>
-                <footer>
+        <footer>
+        <hr>
+        <p>&copy; 2026 NRIIT Learning Management System</p>
+        <p>Email: info@nriit.edu</p>
+        <p>Phone: +91 9876543210</p>
+        <p>Follow Us:</p>
+        <a href="#">Facebook</a> |
+        <a href="#">Instagram</a> |
+        <a href="#">LinkedIn</a>
+    </footer>
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
 
-
-
-  sc<ript src=""js/script.js"></script>   
 </body>
 </html>
